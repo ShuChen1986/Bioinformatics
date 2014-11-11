@@ -1,0 +1,8 @@
+# Use sed command to rename the sequence heads to label the assemler used (optional)
+sed 's/>/>assembler_name/' seqs.fasta
+# Use USEARCH to sort the sequences by length
+usearch -sortbylength seqs.fasta -output seqs_sorted.fasta
+# Use CD-HIT-EST to remove redundant sequences
+cd-hit-est -i seqs_sorted.fasta -o seqs_sorted100.fasta -c 1.00 -n 10
+# Use tr2aacds.pl to sort out the best trascript sets
+tr2aacds.pl -mrnaseq seqs_sorted100.fasta
